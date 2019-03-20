@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="geex.boot.dao.xuser.UserMapper">
+  <resultMap id="BaseResultMap" type="geex.boot.domain.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="N_ID" jdbcType="INTEGER" property="nId" />
+    <result column="C_UID" jdbcType="CHAR" property="cUid" />
+    <result column="C_ID_NO" jdbcType="VARCHAR" property="cIdNo" />
+    <result column="C_PHONE_NUM" jdbcType="VARCHAR" property="cPhoneNum" />
+    <result column="C_MAIL" jdbcType="VARCHAR" property="cMail" />
+    <result column="C_NAME" jdbcType="VARCHAR" property="cName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    N_ID, C_UID, C_ID_NO, C_PHONE_NUM, C_MAIL, C_NAME
+  </sql>
+  <select id="searchAllUser" resultMap="BaseResultMap">
+    select * from USER
+  </select>
+</mapper>

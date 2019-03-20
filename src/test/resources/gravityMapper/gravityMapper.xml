@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="geex.boot.dao.gravity.GravityDao">
+    <select id="getAppCommon" resultType="geex.boot.domain.AppCommonModel">
+        SELECT a.C_APP_ID as appId,
+        a.C_NAME_CN as name,
+        a.C_CUST_IDNO as idNo,
+        a.C_ORG05 as merchant,
+        app.C_VAR701 as deviceType,
+        a.N_AMT_APPLIED as loanMoney,
+        a.C_MBL_TEL as mobile,
+        a.N_TENOR_APPLIED as tenor,
+        a.N_APP_STATUS as status,
+        a.C_CARD_RSV_MB as reservedMobile,
+        a.C_CITY_CODE as cityCode,
+        a.C_CITY as city,
+        app.C_VAR706 as cpnyCity,
+        app.C_VAR707 as cpnyCityCode,
+        app.N_VAR302 as salary,
+        c.ACCOUNT_NO    AS hfAccountNo,
+        d.ACCOUNT_SIGN  AS nyAccountSign,
+        d.ACCOUNT_NO    AS nyAccountNo,
+        a.D_DRAWDOWN AS drawDownDate,
+        f.CARD_NO as bindCardNo,
+        g.CARD_NO as nyBindCard,
+        h.ACCT_NO_ID as hasSetPassword
+        FROM BIZ_APP_COMMON a
+        LEFT JOIN BIZ_APP01 app ON a.C_APP_ID = app.C_APP_ID
+        LEFT JOIN GEEX_USER b ON a.C_CUST_IDNO = b.ID_NO
+        LEFT JOIN GEEX_USER_ACCOUNT c ON b.USER_ID = c.USER_ID AND c.ACCOUNT_TYPE = 'HFTX'
+        LEFT JOIN GEEX_USER_ACCOUNT d ON b.USER_ID = d.USER_ID AND d.ACCOUNT_TYPE = 'NYB01'
+        LEFT JOIN GEEX_ACCOUNT_CARD f ON f.CARD_NO = app.C_VAR724 AND c.ACCOUNT_ID = f.ACCOUNT_ID
+        LEFT JOIN NY_CARD_BIND g ON d.ACCOUNT_SIGN = g.ACCT_NO_ID
+        LEFT JOIN NY_SET_PASSWORD h ON h.ACCT_NO_ID = d.ACCOUNT_SIGN
+        WHERE a.C_APP_ID = #{0}
+    </select>
+</mapper>
